@@ -205,10 +205,13 @@ class VSCodeJetBrainsSyncService(private val project: Project) {
             object : FileEditorManagerListener {
                 override fun fileOpened(source: FileEditorManager, file: VirtualFile) {
                     if (!isHandlingExternalUpdate) {
-                        val editor = source.selectedTextEditor
-                        editor?.let {
-                            updateStateFromEditor(it, file)
-                            setupCaretListener(it, file)
+                        // Get the editor from the newly opened file, not from selectedTextEditor
+                        // selectedTextEditor might be null at this point due to timing issues
+                        val editors = source.getEditors(file)
+                        val textEditor = editors.firstOrNull { it is TextEditor } as? TextEditor
+                        textEditor?.let {
+                            updateStateFromEditor(it.editor, file)
+                            setupCaretListener(it.editor, file)
                         }
                     }
                 }
