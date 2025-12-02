@@ -66,3 +66,4 @@ VSCodeJetBrainsSync-*.zip
 !gradle/wrapper/gradle-wrapper.properties
 build.sh
 .DS_Store
+.claude/

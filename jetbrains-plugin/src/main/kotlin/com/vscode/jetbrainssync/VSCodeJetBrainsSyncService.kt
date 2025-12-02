@@ -44,6 +44,13 @@ class VSCodeJetBrainsSyncService(private val project: Project) {
     init {
         log.info("Initializing VSCodeJetBrainsSyncService")
         setupStatusBar()
+
+        // Check if auto sync is enabled in settings
+        val settings = VSCodeJetBrainsSyncSettings.getInstance(project)
+        if (settings.state.autoSyncOnStartup) {
+            autoReconnect = true
+        }
+
         connectWebSocket()
         setupEditorListeners()
         setupWindowListeners()

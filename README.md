@@ -35,6 +35,23 @@ The default port is 3000, this can be changed in the respective settings and mus
 - In VSCode: Settings > Extensions > IDE Sync - Connect to JetBrains IDE > Port
 - In JetBrains IDE: Settings > Tools > IDE Sync - Connect to VSCode > WebSocket Port
 
+### Auto Sync on Startup (New Feature)
+
+You can now configure the sync to start automatically when the IDE launches:
+
+**VSCode:**
+- Go to Settings > Extensions > IDE Sync - Connect to JetBrains IDE
+- Enable "Auto Sync On Startup" checkbox
+- Restart VSCode for the setting to take effect
+
+**JetBrains IDE:**
+- Go to Settings > Tools > IDE Sync - Connect to VSCode
+- Enable "自动启动同步" checkbox
+- Restart the IDE for the setting to take effect
+
+*Note: Auto sync is disabled by default to maintain backward compatibility.*
+
+
 ## Usage
 
 1. Start both IDEs
@@ -46,6 +63,8 @@ The default port is 3000, this can be changed in the respective settings and mus
 - Real-time synchronization of file opening and cursor position
 - Automatic reconnection on port changes
 - Status bar indicator showing connection status
+- **Auto sync on startup** - Configure sync to start automatically when IDE launches (disabled by default)
+- **Receive-only mode (VSCode)** - Configure VSCode to only receive sync from JetBrains without sending back (disabled by default)
 
 ## Components
 
@@ -85,6 +104,7 @@ cd ..
 3. Build JetBrains plugin
 ```bash
 cd jetbrains-plugin
+gradle wrapper
 ./gradlew buildPlugin
 cd ..
 ```

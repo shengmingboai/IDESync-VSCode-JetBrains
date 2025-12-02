@@ -52,6 +52,11 @@
           "type": "number",
           "default": 3000,
           "description": "Port number for the WebSocket server"
+        },
+        "vscode-jetbrains-sync.autoSyncOnStartup": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically start sync when VS Code launches"
         }
       }
     }

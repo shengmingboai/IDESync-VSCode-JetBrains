@@ -24,7 +24,15 @@ export class VSCodeJetBrainsSync {
         this.statusBarItem.command = 'vscode-jetbrains-sync.toggleAutoReconnect';
         this.updateStatusBarItem();
         this.statusBarItem.show();
-        
+
+        // Check if auto sync is enabled in settings
+        const config = vscode.workspace.getConfiguration('vscode-jetbrains-sync');
+        const autoSyncOnStartup = config.get('autoSyncOnStartup', false);
+
+        if (autoSyncOnStartup) {
+            this.autoReconnect = true;
+        }
+
         // Initialize WebSocket server
         this.setupServer();
         this.setupEditorListeners();

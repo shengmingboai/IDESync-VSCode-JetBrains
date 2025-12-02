@@ -11,6 +11,7 @@ import java.awt.Component
 
 class VSCodeJetBrainsSyncConfigurable(private val project: Project) : Configurable {
     private var portSpinner: JSpinner? = null
+    private var autoSyncCheckBox: JCheckBox? = null
     private var settings: VSCodeJetBrainsSyncSettings = VSCodeJetBrainsSyncSettings.getInstance(project)
 
     override fun getDisplayName(): String = "IDE Sync - Connect to VSCode"
@@ -26,6 +27,8 @@ class VSCodeJetBrainsSyncConfigurable(private val project: Project) : Configurab
             format.isGroupingUsed = false
             it.textField.columns = 5
         }
+
+        autoSyncCheckBox = JCheckBox("自动启动同步", settings.state.autoSyncOnStartup)
 
         val panel = JPanel()
         panel.layout = BoxLayout(panel, BoxLayout.Y_AXIS)
@@ -43,6 +46,10 @@ class VSCodeJetBrainsSyncConfigurable(private val project: Project) : Configurab
         portPanel.add(Box.createHorizontalStrut(10))
         portPanel.add(portSpinner)
         panel.add(portPanel)
+        panel.add(Box.createVerticalStrut(10))
+          // Add auto sync checkbox
+        autoSyncCheckBox?.alignmentX = Component.LEFT_ALIGNMENT
+        panel.add(autoSyncCheckBox)
 
         reset()
         return panel
@@ -50,7 +57,8 @@ class VSCodeJetBrainsSyncConfigurable(private val project: Project) : Configurab
 
     override fun isModified(): Boolean {
         return try {
-            portSpinner?.value as? Int != settings.state.port
+            portSpinner?.value as? Int != settings.state.port ||
+            autoSyncCheckBox?.isSelected != settings.state.autoSyncOnStartup
         } catch (e: NumberFormatException) {
             true
         }
@@ -58,10 +66,12 @@ class VSCodeJetBrainsSyncConfigurable(private val project: Project) : Configurab
 
     override fun apply() {
         settings.state.port = portSpinner?.value as? Int ?: 3000
+        settings.state.autoSyncOnStartup = autoSyncCheckBox?.isSelected ?: false
         project.service<VSCodeJetBrainsSyncService>().restartConnection()
     }
 
     override fun reset() {
         portSpinner?.value = settings.state.port
+        autoSyncCheckBox?.isSelected = settings.state.autoSyncOnStartup
     }
 } 
