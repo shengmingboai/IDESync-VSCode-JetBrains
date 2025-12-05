@@ -47,9 +47,26 @@ export class VSCodeJetBrainsSync {
         } else if (!this.autoReconnect) {
             icon = '$(sync-ignored)';
         }
-        
+
+        const config = vscode.workspace.getConfiguration('vscode-jetbrains-sync');
+        const receiveOnly = config.get('receiveOnly', false);
+
         this.statusBarItem.text = `${icon} ${this.autoReconnect ? 'IDE Sync On' : 'Turn IDE Sync On'}`;
-        this.statusBarItem.tooltip = `${this.isConnected ? 'Connected to JetBrains IDE\n' : 'Waiting for JetBrains IDE connection\n'}Click to turn sync ${this.autoReconnect ? 'off' : 'on'}`;
+
+        let tooltip = '';
+        if (this.isConnected) {
+            tooltip += 'Connected to JetBrains IDE\n';
+            if (receiveOnly) {
+                tooltip += 'Mode: Receive Only (JetBrains → VSCode)\n';
+            } else {
+                tooltip += 'Mode: Two-Way Sync\n';
+            }
+        } else {
+            tooltip += 'Waiting for JetBrains IDE connection\n';
+        }
+        tooltip += `Click to turn sync ${this.autoReconnect ? 'off' : 'on'}`;
+
+        this.statusBarItem.tooltip = tooltip;
     }
 
     public toggleAutoReconnect() {
@@ -237,6 +254,15 @@ export class VSCodeJetBrainsSync {
         this.currentState = state;
         if (this.jetbrainsClient?.readyState === WebSocket.OPEN) {
             try {
+                // Check if receive-only mode is enabled
+                const config = vscode.workspace.getConfiguration('vscode-jetbrains-sync');
+                const receiveOnly = config.get('receiveOnly', false);
+
+                if (receiveOnly) {
+                    console.log('Skipping state update (receive-only mode enabled)');
+                    return;
+                }
+
                 // Only send updates if we're active
                 if (this.isActive) {
                     console.log('Sending state update (VSCode is active):', state);

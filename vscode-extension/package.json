@@ -57,6 +57,11 @@
           "type": "boolean",
           "default": false,
           "description": "Automatically start sync when VS Code launches"
+        },
+        "vscode-jetbrains-sync.receiveOnly": {
+          "type": "boolean",
+          "default": false,
+          "description": "Only receive file changes from JetBrains IDE, do not send VSCode changes (one-way sync: JetBrains → VSCode)"
         }
       }
     }
