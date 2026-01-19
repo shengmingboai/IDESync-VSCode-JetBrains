@@ -1,44 +1,51 @@
-# IDE Sync - VSCode-JetBrains Sync
+# IDE Sync - VSCode-JetBrains 同步
 
->**Note:** his synchronization system is suitable for VSCode, VSCode forks like Cursor or Windsurf as well as JetBrains IntelliJ-based IDEs like Rider, IntelliJ IDEA, and WebStorm.
+**简体中文** | [English](./README_EN.md)
 
-This extension enables synchronization between VS Code and JetBrains IDEs. It automatically synchronizes cursor position and active file between both editors.
+> **注意：** 此同步系统适用于 VSCode、VSCode 分支（如 Cursor、Windsurf）以及 JetBrains IntelliJ 系列 IDE（如 Rider、IntelliJ IDEA、WebStorm）。
 
-## Features
+此扩展可在 VS Code 和 JetBrains IDE 之间实现同步。它会自动同步两个编辑器之间的光标位置和活动文件。
 
-- Automatic cursor position synchronization
-- Automatic active file synchronization
-- Easy toggle in the status bar
+## 功能特性
 
-## Installation
+- **实时同步** - 自动光标位置和活动文件同步
+- **状态栏切换** - 状态栏中便捷的启用/禁用切换按钮
+- **启动时自动同步** - VSCode 启动时自动开始同步（可配置）
+- **单向同步模式** - VSCode 仅接收模式（仅接收来自 JetBrains 的更改）
+- **非预览模式** - 文件始终在持久标签页中打开
 
-1. Install the extension from VS Code Marketplace called `IDE Sync - Connect to JetBrains IDE`
-2. Install the corresponding JetBrains plugin in JetBrains IDE called `IDE Sync - Connect to VSCode`
+## 安装
 
-## Usage
+1. 从 VS Code 市场安装名为 `IDE Sync - Connect to JetBrains IDE` 的扩展
+2. 在 JetBrains IDE 中安装相应的插件 `IDE Sync - Connect to VSCode`
 
-1. After installation, you'll find a toggle button in the VS Code status bar
-2. Click the button to enable/disable synchronization
-3. The button shows the current status:
-   - `Turn IDE Sync On` - Sync disabled
-   - `IDE Sync On` - Sync enabled
+## 使用方法
 
-## Settings
+1. 安装后，你会在 VS Code 状态栏中看到一个切换按钮
+2. 点击按钮以启用/禁用同步
+3. 按钮显示当前状态：
+   - `Turn IDE Sync On` - 同步已禁用
+   - `IDE Sync On` - 同步已启用
 
-You can adjust the WebSocket port in the settings:
+## 设置
 
-1. Open VS Code settings
-2. Search for "IDE Sync - Connect to JetBrains IDE"
-3. Adjust the port (default: 3000)
+你可以在 VS Code 设置中配置此扩展：
 
-## Troubleshooting
+1. 打开 VS Code 设置
+2. 搜索 "IDE Sync - Connect to JetBrains IDE"
+3. 可用设置：
+   - **Port（端口）** - WebSocket 端口号（默认：3000，必须与 JetBrains 插件匹配）
+   - **Auto Sync On Startup（启动时自动同步）** - VS Code 启动时自动开始同步（默认：false）
+   - **Receive Only（仅接收）** - 仅接收来自 JetBrains IDE 的更改，不发送 VSCode 的更改（默认：false）
 
-If you can't establish a connection:
-1. Make sure both plugins are installed
-2. Check if the IDE Sync is turned on in both IDEs
-3. Verify that the port settings match in both plugins
-4. Restart both editors
+## 故障排除
 
-## Feedback & Issues
+如果无法建立连接：
+1. 确保两个插件都已安装
+2. 检查两个 IDE 中的 IDE Sync 是否都已开启
+3. 验证两个插件中的端口设置是否匹配
+4. 重启两个编辑器
 
-Please report issues or suggestions on [GitHub](https://github.com/denisbalber/IDESync-VSCode-JetBrains/issues). 
+## 反馈与问题
+
+请在 [GitHub](https://github.com/shengmingboai/IDESync-VSCode-JetBrains/issues) 上报告问题或提出建议。

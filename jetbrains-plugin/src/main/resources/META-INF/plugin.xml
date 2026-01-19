@@ -54,6 +54,12 @@
     ]]></description>
     <depends>com.intellij.modules.platform</depends>
     <change-notes><![CDATA[
+        <h3>Version 1.0.19</h3>
+        <ul>
+            <li>Added auto-start sync on startup configuration option</li>
+            <li>Fixed JetBrains IDE synchronization issues</li>
+            <li>Supports one-way sync from JetBrains IDE to VSCode</li>
+        </ul>
         <h3>Version 1.0.18</h3>
         <ul>
             <li>Files in the VSCode extension now always open in non-preview mode</li>
